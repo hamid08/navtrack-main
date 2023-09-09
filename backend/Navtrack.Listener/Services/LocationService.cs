@@ -42,6 +42,7 @@ public class LocationService : ILocationService
                     locations.Select(x => LocationDocumentMapper.Map(x, asset, connectionMessageId))
                         .ToList();
 
+
                 await locationDataService.AddRange(mapped);
                 
                 LocationDocument latestLocation = mapped.OrderByDescending(x => x.DateTime).First();

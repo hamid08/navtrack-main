@@ -22,7 +22,7 @@ public class TeltonikaMessageHandler : BaseMessageHandler<TeltonikaProtocol>
 
                 input.Client.SetDevice(imei);
 
-                input.NetworkStream.WriteByte(1);
+                //input.NetworkStream.WriteByte(1);
             }
 
             return null;
@@ -71,8 +71,10 @@ public class TeltonikaMessageHandler : BaseMessageHandler<TeltonikaProtocol>
 
         byte priority = input.DataMessage.ByteReader.GetOne();
 
-        location.Longitude = GetCoordinate(input.DataMessage.ByteReader.Get(4));
-        location.Latitude = GetCoordinate(input.DataMessage.ByteReader.Get(4));
+        location.Longitude = 
+        GetCoordinate(input.DataMessage.ByteReader.Get(4));
+        location.Latitude = 
+            GetCoordinate(input.DataMessage.ByteReader.Get(4));
         location.Altitude = input.DataMessage.ByteReader.Get(2).ToInt16();
         location.Heading = input.DataMessage.ByteReader.Get(2).ToInt16();
         location.Satellites = input.DataMessage.ByteReader.GetOne();
@@ -132,6 +134,14 @@ public class TeltonikaMessageHandler : BaseMessageHandler<TeltonikaProtocol>
         }
 
         return events;
+    }
+
+    public static byte[] ConvertDoubleToByteArray(double d)
+
+    {
+
+        return BitConverter.GetBytes(d);
+
     }
 
     private static IEnumerable<Event> GetEvents(ByteReader input, CodecConfiguration codecConfiguration)

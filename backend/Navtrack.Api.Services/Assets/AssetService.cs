@@ -65,6 +65,7 @@ public class AssetService : IAssetService
                                   Enumerable.Empty<ObjectId>().ToList();
         List<AssetDocument> assets = await assetDataService.GetAssetsByIds(assetIds);
 
+
         List<string> assetDeviceTypes =
             assets.Select(x => x.Device.DeviceTypeId).Distinct().ToList();
 
